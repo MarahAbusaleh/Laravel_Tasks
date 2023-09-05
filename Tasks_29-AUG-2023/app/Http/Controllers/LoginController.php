@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public function index(Request $request)
     {
-        $email = $request->input('email');
+        $email = $request->input('email'); //$request->email
         $password = $request->input('password');
         $user = Login::where('email', $email)->first();
         // dd($email);
