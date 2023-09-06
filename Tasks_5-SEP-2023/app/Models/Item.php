@@ -9,7 +9,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'price', 'category_id', 'image_path'];
+    protected $fillable = ['name', 'price', 'category_id', 'image'];
 
     public function category() //category is the name of relationship
     {

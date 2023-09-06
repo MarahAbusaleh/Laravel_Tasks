@@ -125,10 +125,11 @@
                                     <th scope="row">{{ $item-> id }}</th>
                                     <td>{{ $item-> name }}</td>     
                                     <td>{{ $item-> price }}</td>                            
-                                    <td><img src="{{ asset($item->image_path) }}"  class="categoryimages"></td>
+                                    <td><img src="{{ asset($item->image) }}"  class="categoryimages"></td>
                                     <td>
                                         <br><br><br><br><br>
                                         <a href="{{ route('Item.edit', $item->id) }}"><button type="button" class="btn btn-outline-success m-1"><i class="ti ti-pencil"></i>Edit</button></a>
+                                        {{-- becuse delete method don't have a saparet file  --}}
                                         <form action="{{ route('Item.destroy', $item->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')

@@ -48,7 +48,7 @@ class ItemController extends Controller
             'name' => $request->input('name'),
             'price' => $request->input('price'),
             'category_id' => $category_id,
-            'image_path' => $relativeImagePath,
+            'image' => $relativeImagePath,
         ]);
         // dd($category);
 
@@ -62,6 +62,8 @@ class ItemController extends Controller
 
     public function edit($id)
     {
+        $data = Item::where('id', $id)->first();
+
         return view('Item.edit', [
             'item' => Item::where('id', $id)->first()
         ]);
@@ -69,9 +71,17 @@ class ItemController extends Controller
 
     public function update(Request $request, $id)
     {
-        Item::where('id', $id)->update($request->except([
-            '_token', '_method'
-        ]));
+        $data = $request->except(['_token', '_method']);
+
+        // Check if a new image was uploaded
+        if ($request->hasFile('image')) {
+            $newImage = $this->storeImage($request);
+
+            // Update the image column only if a new image was uploaded
+            $data['image'] = $newImage;
+        }
+
+        Item::where('id', $id)->update($data);
 
         return redirect(route('Item.itemtable'));
     }
@@ -81,5 +91,19 @@ class ItemController extends Controller
         Item::destroy($id);
 
         return redirect(route('Item.itemtable'))->with('message', 'Product has been Deleted');
+    }
+
+    public function storeImage($request)
+    {
+        $newImageName = uniqid() . '-' . $request->addedCategoryName . '.' . $request->file('image')->extension();
+        $relativeImagePath = 'assets/images/' . $newImageName;
+        $request->file('image')->move(public_path('assets/images'), $newImageName);
+    
+        $categoryName = $request->input('category_name');
+        $category = Category::where('name', $categoryName)->first(); // Retrieve the category by name
+        $category_id = $category ? $category->id : 0;
+        
+        return $relativeImagePath;
+
     }
 }

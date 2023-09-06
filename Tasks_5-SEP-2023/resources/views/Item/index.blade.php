@@ -116,7 +116,8 @@ https://templatemo.com/tm-571-hexashop
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
-                                <img src="{{ asset($item->image_path) }}" alt="">
+                                <img src="{{ asset($item->image) }}" alt="">
+                                
                             </div>
                             <div class="down-content">
                                 <h4>{{ $item->name }}</h4>

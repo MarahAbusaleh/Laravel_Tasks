@@ -55,7 +55,7 @@ class CategoryController extends Controller
         // ]);
 
         //if the data is invalid -> a validation exception will be thrown with instruction of what went wrong 
-                
+        
         /*-----------------------------------------------------*/
 
         $relativeImagePath = null; // Initialize relativeImagePath as null

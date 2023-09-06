@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
 
             $table->string('name');
-            $table->string('image_path');
+            $table->string('image');
             $table->float('price');
             $table->timestamps();
 
